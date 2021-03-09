@@ -12,10 +12,10 @@
         , username, extraSpecialArgs ? { }
         , pkgs ? builtins.getAttr system nixpkgs.outputs.legacyPackages
         , check ? true 
-        , useGlobalPackages ? false}@args:
+        , usePassedPkgs ? false}@args:
         import ./modules {
           inherit pkgs check extraSpecialArgs;
-          useNixpkgsModule = !useGlobalPackages;
+          useNixpkgsModule = usePassedPkgs;
           configuration = { ... }: {
             imports = [ configuration ];
             home = { inherit homeDirectory username; };
