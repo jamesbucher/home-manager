@@ -6,6 +6,8 @@
 , check ? true
   # Extra arguments passed to specialArgs.
 , extraSpecialArgs ? { }
+# If disabled, the pkgs attribute passed to this function is used instead.
+# See argument in modules.nix
 , useNixpkgsModule ? true
 }:
 
