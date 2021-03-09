@@ -6,6 +6,9 @@
 , check ? true
   # Extra arguments passed to specialArgs.
 , extraSpecialArgs ? { }
+# If disabled, the pkgs attribute passed to this function is used instead.
+# See argument in modules.nix
+, useNixpkgsModule ? true
 }:
 
 with lib;
@@ -25,7 +28,7 @@ let
 
   hmModules =
     import ./modules.nix {
-      inherit check pkgs;
+      inherit check pkgs useNixpkgsModule;
       lib = extendedLib;
     };
 
