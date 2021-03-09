@@ -11,9 +11,13 @@
       homeManagerConfiguration = { configuration, system, homeDirectory
         , username, extraSpecialArgs ? { }
         , pkgs ? builtins.getAttr system nixpkgs.outputs.legacyPackages
-        , check ? true }@args:
+        , check ? true 
+        # If this is true then use the passed in pkgs module for
+        # the set of packages to install
+        , usePassedPkgs ? false}@args:
         import ./modules {
           inherit pkgs check extraSpecialArgs;
+          useNixpkgsModule = !usePassedPkgs;
           configuration = { ... }: {
             imports = [ configuration ];
             home = { inherit homeDirectory username; };
