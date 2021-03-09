@@ -15,7 +15,7 @@
         , useGlobalPackages ? false}@args:
         import ./modules {
           inherit pkgs check extraSpecialArgs;
-          useNixpksModule = !useGlobalPackages;
+          useNixpkgsModule = !useGlobalPackages;
           configuration = { ... }: {
             imports = [ configuration ];
             home = { inherit homeDirectory username; };
