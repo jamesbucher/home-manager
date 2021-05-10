@@ -6,6 +6,7 @@
 , check ? true
   # Extra arguments passed to specialArgs.
 , extraSpecialArgs ? { }
+, useNixpkgsModule ? true
 }:
 
 with lib;
@@ -25,7 +26,7 @@ let
 
   hmModules =
     import ./modules.nix {
-      inherit check pkgs;
+      inherit check pkgs useNixpkgsModule;
       lib = extendedLib;
     };
 
