@@ -32,7 +32,7 @@ let
     (loadModule ./misc/gtk.nix { })
     (loadModule ./misc/lib.nix { })
     (loadModule ./misc/news.nix { })
-    (loadModule ./misc/nixpkgs.nix { condition = !useNixpkgsModule; })
+    (loadModule ./misc/nixpkgs.nix { condition = useNixpkgsModule; })
     (loadModule ./misc/numlock.nix { condition = hostPlatform.isLinux; })
     (loadModule ./misc/pam.nix { })
     (loadModule ./misc/qt.nix { })
@@ -240,7 +240,7 @@ let
       _module.args.pkgs = lib.mkDefault pkgs;
       _module.check = check;
       lib = lib.hm;
-    } // optionalAttrs (!useNixpkgsModule) {
+    } // optionalAttrs (useNixpkgsModule) {
       nixpkgs.system = mkDefault pkgs.system;
     };
   };
