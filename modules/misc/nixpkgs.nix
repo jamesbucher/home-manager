@@ -49,7 +49,7 @@ let
     merge = lib.mergeOneOption;
   };
 
-  _pkgs = import pkgsPath (
+  _pkgs = import pkgs.path (
     filterAttrs (n: v: v != null) config.nixpkgs
   );
 
