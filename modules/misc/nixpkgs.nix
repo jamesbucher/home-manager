@@ -49,9 +49,9 @@ let
     merge = lib.mergeOneOption;
   };
 
-  #_pkgs = import pkgs.path (
-  #  filterAttrs (n: v: v != null) config.nixpkgs
-  #);
+  _pkgs = import pkgs.path (
+    filterAttrs (n: v: v != null) config.nixpkgs
+  );
 
 in
 
@@ -142,7 +142,7 @@ in
 
   config = {
     _module.args = {
-      pkgs = mkOverride modules.defaultPriority pkgs;
+      pkgs = mkOverride modules.defaultPriority _pkgs;
       pkgs_i686 =
         if _pkgs.stdenv.isLinux && _pkgs.stdenv.hostPlatform.isx86
         then _pkgs.pkgsi686Linux
