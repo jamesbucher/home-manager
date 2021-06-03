@@ -13,7 +13,7 @@
 with lib;
 
 let
-
+  
   hostPlatform = pkgs.stdenv.hostPlatform;
 
   loadModule = file: { condition ? true }: {
@@ -240,7 +240,7 @@ let
       _module.args.pkgs = lib.mkDefault pkgs;
       _module.check = check;
       lib = lib.hm;
-    } // optionalAttrs !useNixpkgsModule {
+    } // optionalAttrs (!useNixpkgsModule) {
       nixpkgs.system = mkDefault pkgs.system;
     };
   };
