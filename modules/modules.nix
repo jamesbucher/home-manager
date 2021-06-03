@@ -32,7 +32,7 @@ let
     (loadModule ./misc/gtk.nix { })
     (loadModule ./misc/lib.nix { })
     (loadModule ./misc/news.nix { })
-    (loadModule ./misc/nixpkgs.nix { condition = useNixpkgsModule; })
+    (loadModule ./misc/nixpkgs.nix)
     (loadModule ./misc/numlock.nix { condition = hostPlatform.isLinux; })
     (loadModule ./misc/pam.nix { })
     (loadModule ./misc/qt.nix { })
@@ -232,16 +232,17 @@ let
   pkgsModule = { config, ... }: {
     config = {
       _module.args.baseModules = modules;
-      _module.args.pkgsPath = lib.mkDefault (
-        if versionAtLeast config.home.stateVersion "20.09" then
-          pkgs.path
-        else
-          <nixpkgs>);
-      _module.args.pkgs = lib.mkDefault pkgs;
+      #_module.args.pkgsPath = lib.mkDefault (
+      #  if versionAtLeast config.home.stateVersion "20.09" then
+      #    pkgs.path
+      #  else
+      #    <nixpkgs>);
+      _module.args.pkgsPath = pkgs.path;
+      _module.args.pkgs = pkgs;
       _module.check = check;
       lib = lib.hm;
     } // optionalAttrs (useNixpkgsModule) {
-      #nixpkgs.system = mkDefault pkgs.system;
+      nixpkgs.system = pkgs.system;
     };
   };
 
