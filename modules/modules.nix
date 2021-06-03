@@ -237,12 +237,12 @@ let
       #    pkgs.path
       #  else
       #    <nixpkgs>);
-      _module.args.pkgsPath = pkgs.path;
-      _module.args.pkgs = pkgs;
+      _module.args.pkgsPath = mkDefault pkgs.path;
+      _module.args.pkgs = mkDefault pkgs;
       _module.check = check;
       lib = lib.hm;
     } // optionalAttrs (useNixpkgsModule) {
-      nixpkgs.system = pkgs.system;
+      nixpkgs.system = mkDefault pkgs.system;
     };
   };
 
